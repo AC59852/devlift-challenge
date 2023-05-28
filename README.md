@@ -78,7 +78,7 @@ Distributed under the MIT License.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@AustinCaron](https://linkedin.com/in/austincaron) - austin.caron1@gmail.com
+Austin Caron - [@AustinCaron](https://linkedin.com/in/austincaron) - austin.caron1@gmail.com
 
 Project Link: [https://github.com/AC59852/devlift-challenge](https://github.com/AC59852/devlift-challenge)
 
