@@ -92,6 +92,6 @@ Project Link: [https://github.com/AC59852/devlift-challenge](https://github.com/
 [linkedin-url]: https://linkedin.com/in/austincaron
 [product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[ReactFire]: https://img.shields.io/badge/ReactFire-20232A?style=for-the-badge&logo=react&logoColor=f0ad3a
+[ReactFire]: https://img.shields.io/badge/ReactFire-20232A?style=for-the-badge&colorB=f0ad3a
 [React-url]: https://reactjs.org/
 [ReactFire-url]: https://github.com/FirebaseExtended/reactfire
