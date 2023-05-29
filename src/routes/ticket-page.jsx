@@ -1,7 +1,6 @@
 // load the ticket data based on the id
-import { collection, getFirestore, query, doc, getDoc } from 'firebase/firestore'
-import { FirestoreProvider, useFirestoreCollectionData, useFirestore, useFirebaseApp, useFirestoreDocData } from 'reactfire';
-import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, doc } from 'firebase/firestore'
+import { useFirebaseApp, useFirestoreDocData } from 'reactfire';
 import '../App.css'
 import { Link, useParams } from 'react-router-dom';
 

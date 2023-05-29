@@ -6,7 +6,9 @@ import TicketPage from './routes/ticket-page.jsx'
 import EditTicket from './routes/edit-ticket.jsx'
 import CreateTicket from './routes/create-ticket.jsx'
 import DeleteTicket from './routes/delete-ticket.jsx'
-import { FirebaseAppProvider } from 'reactfire'
+import SignUp from './routes/signup.jsx'
+import Login from './routes/login.jsx'
+import { FirebaseAppProvider, useSigninCheck } from 'reactfire'
 import './index.css'
 
 const firebaseConfig = {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: '/ticket/create',
     element: <CreateTicket />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
+  },
+  {
+    path: '/login',
+    element: <Login />
   }
 ])
 

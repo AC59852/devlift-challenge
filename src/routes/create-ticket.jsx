@@ -1,10 +1,11 @@
 // allow for creating a ticket
 // use firebase to create the ticket
-import { getFirestore, doc, setDoc, getDoc, query, collection } from 'firebase/firestore'
-import { FirestoreProvider, useFirestore, useFirebaseApp } from 'reactfire';
+import { getFirestore, doc, setDoc, collection } from 'firebase/firestore'
+import { AuthProvider, useFirebaseApp, useUser } from 'reactfire';
+import { getAuth } from 'firebase/auth';
 import '../App.css'
-import { Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 function CreateTicket() {
   // get the firestore instance
@@ -21,6 +22,55 @@ function CreateTicket() {
     website: '',
     body: ''
   });
+
+  const TicketForm = () => {
+    const { data: user } = useUser();
+
+    if(!user) {
+      return (
+        <div>
+          <h1>You must be logged in to create a ticket</h1>
+          <Link to='/login'>Log in</Link>
+        </div>
+      )
+    }
+
+    if (user) {
+      return (
+        <div>
+          <h1>Create Ticket</h1>
+          <form onSubmit={createTicket}>
+            <label>
+              Name:
+              <input type="text" name="name" value={ticket.name} onChange={updateTicket} />
+            </label>
+            <label>
+              Employee Number:
+              <input type="text" name="employeeNumber" value={ticket.employeeNumber} onChange={updateTicket} />
+            </label>
+            <label>
+              Ticket Type:
+              <select name="type" value={ticket.type} onChange={updateTicket}>
+                <option value="bug">Bug</option>
+                <option value="feature">Feature</option>
+                <option value="documentation">Documentation</option>
+              </select>
+            </label>
+            <label>
+              Website:
+              <input type="text" name="website" value={ticket.website} onChange={updateTicket} />
+            </label>
+            <label>
+              Description:
+              <textarea name="body" value={ticket.body} onChange={updateTicket} />
+            </label>
+            <input type="submit" value="Create Ticket" />
+          </form>
+          <Link to="/">Back to tickets</Link>
+      </div>
+      )
+    }
+  }
 
   // create the ticket
   const createTicket = async (e) => {
@@ -49,38 +99,13 @@ function CreateTicket() {
     )
   }
 
+  const firebase = useFirebaseApp();
+  const auth = getAuth(firebase);
+
   return (
-    <div>
-      <h1>Create Ticket</h1>
-      <form onSubmit={createTicket}>
-        <label>
-          Name:
-          <input type="text" name="name" value={ticket.name} onChange={updateTicket} />
-        </label>
-        <label>
-          Employee Number:
-          <input type="text" name="employeeNumber" value={ticket.employeeNumber} onChange={updateTicket} />
-        </label>
-        <label>
-          Ticket Type:
-          <select name="type" value={ticket.type} onChange={updateTicket}>
-            <option value="bug">Bug</option>
-            <option value="feature">Feature</option>
-            <option value="documentation">Documentation</option>
-          </select>
-        </label>
-        <label>
-          Website:
-          <input type="text" name="website" value={ticket.website} onChange={updateTicket} />
-        </label>
-        <label>
-          Description:
-          <textarea name="body" value={ticket.body} onChange={updateTicket} />
-        </label>
-        <input type="submit" value="Create Ticket" />
-      </form>
-      <Link to="/">Back to tickets</Link>
-    </div>
+    <AuthProvider sdk={auth}>
+      <TicketForm />
+    </AuthProvider>
   )
 }
 

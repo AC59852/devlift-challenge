@@ -1,8 +1,8 @@
 import { collection, getFirestore, query } from 'firebase/firestore'
-import { FirestoreProvider, useFirestoreCollectionData, useFirestore, useFirebaseApp, useAuth, useSigninCheck, AuthProvider } from 'reactfire';
-import { GoogleAuthProvider, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { FirestoreProvider, useFirestoreCollectionData, useFirestore, useFirebaseApp, useUser, AuthProvider, useAuth } from 'reactfire';
 import './App.css'
 import { Link } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 
 function TicketsComponent() {
@@ -20,9 +20,8 @@ function TicketsComponent() {
     <ul>
       {tickets?.map(ticket => (
         <li key={ticket.id}>
-          <h3>{ticket.type}</h3>
+          <h2>{ticket.type}</h2>
           <p>{ticket.body}</p>
-          {/* create a dynamic route to the card */}
           <Link to={`/ticket/${ticket.id}`}>View Ticket</Link>
         </li>
       ))}
@@ -30,25 +29,50 @@ function TicketsComponent() {
   )
 }
 
+const UserDetails = () => {
+  const {data: user} = useUser();
+  const auth = useAuth();
+  if(user) {
+  return (
+    <>
+      <header>
+        <h2>Logged in as:</h2>
+        <p>Email: {user.email}</p>
+        <button onClick={() => auth.signOut()}>Sign out</button>
+      </header>
+      <main>
+        <h1>Tickets</h1>
+        <TicketsComponent />
+        <Link to='/create-ticket'>Create Ticket</Link>
+      </main>
+    </>
+  )
+  } else {
+    return (
+      <>
+        <h1>You must be logged in to view tickets</h1>
+        <Link to='/login'>Log in</Link>
+      </>
+    )
+  }
+}
+
 function App() {
   const firestoreInstance = getFirestore(useFirebaseApp());
 
-  const firebaseApp = useFirebaseApp();
-  const auth = getAuth(firebaseApp);
+  const firebase = useFirebaseApp();
+  const auth = getAuth(firebase);
+
+  // only show the page if the user is signed in. otherwise show a form for the user to sign in
   return (
-    <>
     <AuthProvider sdk={auth}>
-     <FirestoreProvider sdk={firestoreInstance}>
-      <div className="App">
-        <h1>DevLift Challenge</h1>
-        <p>Here are some tickets:</p>
-        <TicketsComponent />
-        <Link to='/ticket/create'>Create New Ticket</Link>
-      </div>
-     </FirestoreProvider>
+      <FirestoreProvider sdk={firestoreInstance}>
+        <div className="App">
+          <UserDetails />
+        </div>
+      </FirestoreProvider>
     </AuthProvider>
-    </>
-  )
+  );
 }
 
 export default App
