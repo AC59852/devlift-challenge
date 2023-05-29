@@ -1,10 +1,11 @@
 // load the ticket data based on the id
 import { getFirestore, doc } from 'firebase/firestore'
-import { useFirebaseApp, useFirestoreDocData } from 'reactfire';
+import { AuthProvider, useFirebaseApp, useFirestoreDocData, useUser } from 'reactfire';
+import { getAuth } from 'firebase/auth';
 import '../App.css'
 import { Link, useParams } from 'react-router-dom';
 
-function TicketPage() {
+function TicketContent() {
   // get the ticket document
   const { id } = useParams();
   const firestoreInstance = getFirestore(useFirebaseApp());
@@ -41,6 +42,34 @@ function TicketPage() {
       </div>
       <Link to="/">Back to tickets</Link>
     </>
+  )
+}
+
+const TicketUser = () => {
+  const {data: user} = useUser();
+
+  if(user) {
+    return (
+      <TicketContent />
+    )
+  } else {
+    return (
+      <>
+      <h1>You must be logged in to view tickets</h1>
+      <Link to='/login'>Log in</Link>
+      </>
+    )
+  }
+}
+
+function TicketPage() {
+  const firebase = useFirebaseApp();
+  const auth = getAuth(firebase);
+
+  return (
+    <AuthProvider sdk={auth}>
+      <TicketUser />
+    </AuthProvider>
   )
 }
 

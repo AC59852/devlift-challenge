@@ -43,7 +43,7 @@ const UserDetails = () => {
       <main>
         <h1>Tickets</h1>
         <TicketsComponent />
-        <Link to='/create-ticket'>Create Ticket</Link>
+        <Link to='/ticket/create'>Create Ticket</Link>
       </main>
     </>
   )
@@ -52,6 +52,7 @@ const UserDetails = () => {
       <>
         <h1>You must be logged in to view tickets</h1>
         <Link to='/login'>Log in</Link>
+        <Link to='/signup'>Sign Up</Link>
       </>
     )
   }

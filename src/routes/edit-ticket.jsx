@@ -1,7 +1,8 @@
 // using a form allow editing of ticket
 // use firebase to update the ticket
-import { getFirestore, doc, updateDoc, getDoc, query } from 'firebase/firestore'
-import { FirestoreProvider, useFirestore, useFirebaseApp } from 'reactfire';
+import { getFirestore, doc, updateDoc, getDoc } from 'firebase/firestore'
+import { useFirebaseApp, AuthProvider, useUser } from 'reactfire';
+import { getAuth } from 'firebase/auth';
 import '../App.css'
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -38,8 +39,10 @@ function EditTicket() {
     setTicket({ ...ticket, updated: true });
   }
 
-  // if the ticket is updated, return new component
-  if (ticket.updated) {
+  const {data: user} = useUser();
+
+   // if the ticket is updated, return new component
+   if (ticket.updated) {
     return (
       <div>
         <h1>Ticket updated</h1>
@@ -48,38 +51,57 @@ function EditTicket() {
     )
   }
 
+  if(user) {
+    return (
+      <div>
+        <h1>Edit Ticket</h1>
+        <form onSubmit={editTicket}>
+          <label>
+            Name:
+            <input type="text" value={ticket.name} onChange={(e) => setTicket({ ...ticket, name: e.target.value })} />
+          </label>
+          <label>
+            Employee Number:
+            <input type="text" value={ticket.employeeNumber} onChange={(e) => setTicket({ ...ticket, employeeNumber: e.target.value })} />
+          </label>
+          <label>
+            Ticket Type:
+            <select value={ticket.type} onChange={(e) => setTicket({ ...ticket, type: e.target.value })}>
+              <option value="bug">Bug</option>
+              <option value="feature">Feature</option>
+              <option value="documentation">Documentation</option>
+            </select>
+          </label>
+          <label>
+            Website:
+            <input type="text" value={ticket.website} onChange={(e) => setTicket({ ...ticket, website: e.target.value })} />
+          </label>
+          <label>
+            Description:
+            <textarea value={ticket.body} onChange={(e) => setTicket({ ...ticket, body: e.target.value })} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    )
+  }
+
   return (
-    <div>
-      <h1>Edit Ticket</h1>
-      <form onSubmit={editTicket}>
-        <label>
-          Name:
-          <input type="text" value={ticket.name} onChange={(e) => setTicket({ ...ticket, name: e.target.value })} />
-        </label>
-        <label>
-          Employee Number:
-          <input type="text" value={ticket.employeeNumber} onChange={(e) => setTicket({ ...ticket, employeeNumber: e.target.value })} />
-        </label>
-        <label>
-          Ticket Type:
-          <select value={ticket.type} onChange={(e) => setTicket({ ...ticket, type: e.target.value })}>
-            <option value="bug">Bug</option>
-            <option value="feature">Feature</option>
-            <option value="documentation">Documentation</option>
-          </select>
-        </label>
-        <label>
-          Website:
-          <input type="text" value={ticket.website} onChange={(e) => setTicket({ ...ticket, website: e.target.value })} />
-        </label>
-        <label>
-          Description:
-          <textarea value={ticket.body} onChange={(e) => setTicket({ ...ticket, body: e.target.value })} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <>
+    <h1>You must be logged in to edit a ticket</h1>
+    <Link to='/login'>Log in</Link>
+    </>
   )
 }
 
-export default EditTicket
+const UserTicket = () => {
+  const firebase = useFirebaseApp();
+  const auth = getAuth(firebase);
+    return (
+      <AuthProvider sdk={auth}>
+        <EditTicket />
+      </AuthProvider>
+    )
+}
+
+export default UserTicket

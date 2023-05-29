@@ -8,7 +8,7 @@ import CreateTicket from './routes/create-ticket.jsx'
 import DeleteTicket from './routes/delete-ticket.jsx'
 import SignUp from './routes/signup.jsx'
 import Login from './routes/login.jsx'
-import { FirebaseAppProvider, useSigninCheck } from 'reactfire'
+import { FirebaseAppProvider } from 'reactfire'
 import './index.css'
 
 const firebaseConfig = {
