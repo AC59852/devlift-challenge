@@ -58,8 +58,9 @@ This repo is a hackathon style project for DevLift Media. The goal is to create 
 ## Roadmap
 
 - [x] CRUD functionality for tickets
-- [ ] User authentication
+- [x] User authentication
 - [ ] User roles
+- [ ] Relate tickets to the logged in user
 - [ ] Styling
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
