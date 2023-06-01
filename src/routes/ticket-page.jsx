@@ -4,6 +4,8 @@ import { AuthProvider, useFirebaseApp, useFirestoreDocData, useUser } from 'reac
 import { getAuth } from 'firebase/auth';
 import '../App.css'
 import { Link, useParams } from 'react-router-dom';
+import Header from '../components/header';
+
 
 function TicketContent() {
   // get the ticket document
@@ -15,7 +17,7 @@ function TicketContent() {
   // check if the ticket exists
   if (!ticket) {
     return (
-      <div>
+      <div className='ticketCreated'>
         <h1>Ticket does not exist</h1>
         <Link to='/'>Go back</Link>
       </div>
@@ -24,24 +26,28 @@ function TicketContent() {
 
   // render the ticket
   return (
-    <>
-      <div>
+    <section className='ticketPage'>
+      <div className='ticketPage__heading'>
         <h1>Ticket by: {ticket?.name}</h1>
         <h2>Employee No. {ticket?.employeeNumber}</h2>
       </div>
-      <h3>Ticket type: {ticket?.type}</h3>
-      <h3>For website: <a href={ticket?.website} target='_blank'>{ticket?.website}</a></h3>
-      <div>
+      <div className="ticketPage__site">
+        <h3>Ticket type: {ticket?.type}</h3>
+        <h3>For website: <a href={ticket?.website} target='_blank'>{ticket?.website}</a></h3>
+      </div>
+      <div className='ticketPage__body'>
         <h3>Description:</h3>
         <p>{ticket?.body}</p>
       </div>
       {/* add links to edit/delete the ticket */}
-      <div className='links'>
-        <Link to={`/ticket/${ticket?.id}/edit`}>Edit</Link>
-        <Link to={`/ticket/${ticket?.id}/delete`}>Delete</Link>
+      <div className='ticketLinks'>
+        <div className="ticketLinks__crud">
+          <Link to={`/ticket/${ticket?.id}/edit`} className='ticketLinks__crud--edit'>Edit Ticket</Link>
+          <Link to={`/ticket/${ticket?.id}/delete`} className='ticketLinks__crud--delete'>Delete Ticket</Link>
+        </div>
+        <Link to="/" className='ticketLinks__back'>Back to Tickets</Link>
       </div>
-      <Link to="/">Back to tickets</Link>
-    </>
+    </section>
   )
 }
 
@@ -50,14 +56,20 @@ const TicketUser = () => {
 
   if(user) {
     return (
-      <TicketContent />
+      <div>
+        <Header />
+        <TicketContent />
+      </div>
     )
   } else {
     return (
-      <>
-      <h1>You must be logged in to view tickets</h1>
-      <Link to='/login'>Log in</Link>
-      </>
+      <section className='loggedOut'>
+        <h1>You must be logged in to view tickets</h1>
+        <div className="loggedOut__buttons">
+          <Link to='/login' className='loggedOut__btn loggedOut__btn--login'>Log in</Link>
+          <Link to='/signup' className='loggedOut__btn loggedOut__btn--signup'>Sign Up</Link>
+        </div>
+      </section>
     )
   }
 }

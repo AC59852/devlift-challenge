@@ -9,7 +9,7 @@ import DeleteTicket from './routes/delete-ticket.jsx'
 import SignUp from './routes/signup.jsx'
 import Login from './routes/login.jsx'
 import { FirebaseAppProvider } from 'reactfire'
-import './index.css'
+import './App.css'
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9GSGbgN4TSPoKSHUEW_39FkkNwGHayFo",

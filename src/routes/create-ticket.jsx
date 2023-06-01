@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import '../App.css'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Header from '../components/header';
 
 function CreateTicket() {
   // get the firestore instance
@@ -45,7 +46,7 @@ function CreateTicket() {
   // if the ticket is created, return new component
   if (ticket.created) {
     return (
-      <div>
+      <div className='ticketCreated'>
         <h1>Ticket created</h1>
         <Link to={`/ticket/${ticket.id}`}>View Ticket</Link>
       </div>
@@ -57,9 +58,9 @@ function CreateTicket() {
     // set the email to the user's email
     ticket.email = user.email;
   return (
-    <div>
+    <div className='createTicket'>
       <h1>Create Ticket</h1>
-      <form onSubmit={createTicket}>
+      <form onSubmit={createTicket} className='createTicket__form'>
         <label>
           Name:
           <input type="text" name="name" value={ticket.name} onChange={updateTicket} />
@@ -84,18 +85,21 @@ function CreateTicket() {
           Description:
           <textarea name="body" value={ticket.body} onChange={updateTicket} />
         </label>
-        <input type="submit" value="Create Ticket" />
+        <input type="submit" className='createTicket__submit' value="Create Ticket" />
       </form>
-      <Link to="/">Back to tickets</Link>
+      <Link to="/" className='createTicket__back'>Back to tickets</Link>
     </div>
   )
   }
 
   return (
-    <>
-    <h1>You must be logged in to create a ticket</h1>
-    <Link to='/login'>Log in</Link>
-    </>
+    <section className='loggedOut'>
+        <h1>You must be logged in to create tickets</h1>
+        <div className="loggedOut__buttons">
+          <Link to='/login' className='loggedOut__btn loggedOut__btn--login'>Log in</Link>
+          <Link to='/signup' className='loggedOut__btn loggedOut__btn--signup'>Sign Up</Link>
+        </div>
+      </section>
   )
   
 }
@@ -105,6 +109,7 @@ const UserTicket = () => {
   const auth = getAuth(firebase);
     return (
       <AuthProvider sdk={auth}>
+        <Header />
         <CreateTicket />
       </AuthProvider>
     )

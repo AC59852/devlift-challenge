@@ -44,7 +44,7 @@ const Login = () => {
   } 
 
   return (
-    <>
+    <section className='login'>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Email" name="email" onChange={handleChange}/><br />
@@ -52,7 +52,7 @@ const Login = () => {
         <button type="submit">Log in</button>
       </form>
       {user.error && <h4>{user.error}</h4>}
-    </>
+    </section>
   )
 };
 

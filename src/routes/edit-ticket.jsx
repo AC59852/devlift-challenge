@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import '../App.css'
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Header from '../components/header';
 
 function EditTicket() {
   const { id } = useParams();
@@ -53,9 +54,9 @@ function EditTicket() {
 
   if(user) {
     return (
-      <div>
+      <div className='createTicket'>
         <h1>Edit Ticket</h1>
-        <form onSubmit={editTicket}>
+        <form onSubmit={editTicket} className='createTicket__form'>
           <label>
             Name:
             <input type="text" value={ticket.name} onChange={(e) => setTicket({ ...ticket, name: e.target.value })} />
@@ -80,17 +81,21 @@ function EditTicket() {
             Description:
             <textarea value={ticket.body} onChange={(e) => setTicket({ ...ticket, body: e.target.value })} />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" className='createTicket__submit' />
         </form>
+        <Link to={`/ticket/${id}`} className='createTicket__back'>Back to ticket</Link>
       </div>
     )
   }
 
   return (
-    <>
-    <h1>You must be logged in to edit a ticket</h1>
-    <Link to='/login'>Log in</Link>
-    </>
+    <section className='loggedOut'>
+      <h1>You must be logged in to view tickets</h1>
+      <div className="loggedOut__buttons">
+        <Link to='/login' className='loggedOut__btn loggedOut__btn--login'>Log in</Link>
+        <Link to='/signup' className='loggedOut__btn loggedOut__btn--signup'>Sign Up</Link>
+      </div>
+    </section>
   )
 }
 
@@ -99,6 +104,7 @@ const UserTicket = () => {
   const auth = getAuth(firebase);
     return (
       <AuthProvider sdk={auth}>
+        <Header />
         <EditTicket />
       </AuthProvider>
     )

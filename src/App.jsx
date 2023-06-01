@@ -1,8 +1,8 @@
 import { collection, getFirestore, query } from 'firebase/firestore'
-import { FirestoreProvider, useFirestoreCollectionData, useFirestore, useFirebaseApp, useUser, AuthProvider, useAuth } from 'reactfire';
-import './App.css'
+import { FirestoreProvider, useFirestoreCollectionData, useFirestore, useFirebaseApp, useUser, AuthProvider } from 'reactfire';
 import { Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
+import Header from './components/header';
 
 
 function TicketsComponent() {
@@ -17,12 +17,15 @@ function TicketsComponent() {
 
   // render the tickets
   return (
-    <ul>
+    <ul className='tickets'>
       {tickets?.map(ticket => (
-        <li key={ticket.id}>
-          <h2>{ticket.type}</h2>
-          <p>{ticket.body}</p>
-          <Link to={`/ticket/${ticket.id}`}>View Ticket</Link>
+        <li className='ticket' key={ticket.id}>
+          <div className='ticket__content'>
+            <h2>Name: {ticket.name}</h2>
+            <h3>Type: {ticket.type}</h3>
+            <h3 className='ticket__website'>Website: {ticket.website}</h3>
+          </div>
+          <Link className='ticket__button' to={`/ticket/${ticket.id}`}>View Ticket</Link>
         </li>
       ))}
     </ul>
@@ -31,29 +34,28 @@ function TicketsComponent() {
 
 const UserDetails = () => {
   const {data: user} = useUser();
-  const auth = useAuth();
   if(user) {
   return (
     <>
-      <header>
-        <h2>Logged in as:</h2>
-        <p>Email: {user.email}</p>
-        <button onClick={() => auth.signOut()}>Sign out</button>
-      </header>
+      <Header />
       <main>
-        <h1>Tickets</h1>
+        <h1 className='title'>All Tickets</h1>
         <TicketsComponent />
-        <Link to='/ticket/create'>Create Ticket</Link>
+        <div className="viewTicket">
+          <Link className='viewTicket__link' to='/ticket/create'>Create Ticket</Link>
+        </div>
       </main>
     </>
   )
   } else {
     return (
-      <>
+      <section className='loggedOut'>
         <h1>You must be logged in to view tickets</h1>
-        <Link to='/login'>Log in</Link>
-        <Link to='/signup'>Sign Up</Link>
-      </>
+        <div className="loggedOut__buttons">
+          <Link to='/login' className='loggedOut__btn loggedOut__btn--login'>Log in</Link>
+          <Link to='/signup' className='loggedOut__btn loggedOut__btn--signup'>Sign Up</Link>
+        </div>
+      </section>
     )
   }
 }

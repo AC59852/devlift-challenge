@@ -1,47 +1,527 @@
-#root {
-  max-width: 1280px;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+  background-color: #161616;
+  font-family: 'Manrope', sans-serif;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 14px 20px;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.header h2 {
+  margin: 0 14px 0 0;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.header p {
+  font-size: 14px;
+}
+
+.header button {
+  margin-left: auto;
+  padding: 16px 50px;
+  font-size: 15px;
+  background-color: #3746d1;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+}
+
+.title {
+  margin: 30px 40px;
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.tickets {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 40px;
+  gap: 20px;
+}
+
+.ticket {
+  background-color: #202020;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 340px;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.ticket__content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ticket__button {
+  margin-top: auto;
+  margin-left: auto;
+  background-color: #3746d1;
+  padding: 15px 24px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.ticketPage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  max-width: 1200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticketPage__heading {
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.ticketPage__heading h1 {
+  font-size: 42px;
+  font-weight: 800;
+}
+
+.ticketPage__heading h2 {
+  font-size: 18px;
+  margin-top: 16px;
+}
+
+.ticketPage__site {
+  margin-top: 40px;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ticketPage__site a {
+  color: white;
+  font-weight: bold;
+}
+
+.ticketPage__body {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticketPage__body h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ticketPage__body p {
+  width: 400px;
+  line-height: 140%;
   margin: 0 auto;
-  padding: 2rem;
+}
+
+.ticketLinks {
+  margin-top: 30px;
+}
+
+.ticketLinks__crud {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.ticketLinks__crud a {
+  color: white;
+  padding: 19px 0;
+  box-sizing: border-box;
+  width: 155px;
+  text-decoration: none;
+  font-weight: 800;
+  border-radius: 4px;
+}
+
+.ticketLinks__crud--delete {
+  background-color: #d13737;
+}
+
+.ticketLinks__crud--edit {
+  background-color: #3746d1;
+}
+
+.ticketLinks__back {
+  margin-top: 30px;
+  display: block;
+  background-color: #202020;
+  padding: 30px 0;
+  box-sizing: border-box;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.viewTicket {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.viewTicket a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 19px 0;
+  box-sizing: border-box;
+  width: 155px;
+  text-align: center;
+  background-color: #108ee2;
+}
+
+.createTicket h1 {
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+  margin: 60px 0;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-form {
+.createTicket__form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  margin: 0 auto 40px;
+  gap: 25px;
+}
+
+.createTicket__form label {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.createTicket__form input, .createTicket__form select {
+  padding: 12px;
+  box-sizing: border-box;
+  background: #202020;
+  border: none;
+  color: white;
+  opacity: 1;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.createTicket__form select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  position: relative;
+  background-image: url('../chevron-down.svg');
+  background-repeat: no-repeat;
+  background-size: 16px;
+  /* background white */
+  background-position: 95% 50%;
+}
+
+.createTicket__form textarea {
+  padding: 12px;
+  box-sizing: border-box;
+  background: #202020;
+  border: none;
+  color: white;
+  opacity: 1;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  resize: none;
+  height: 200px;
+}
+
+.createTicket__submit {
+  margin-top: 30px;
+  background-color: #3746d1 !important;
+  padding: 18px 60px !important;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.createTicket__back {
+  position: absolute;
+  top: 90px;
+  left: 30px;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: solid 2px transparent;
+}
+
+.createTicket__back:hover {
+  border-bottom: solid 2px white;
+}
+
+.deleteTicket {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.deleteTicket h1, .deleteTicket h2 {
+  color: white;
+  text-align: center;
+}
+
+.deleteTicket h1 {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.deleteTicket h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.deleteTicket h3, .deleteTicket p {
+  color: white;
+  text-align: center;
+}
+
+.deleteTicket h3 {
+  margin: 25px 0 7px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.deleteTicket p {
+  color: white;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.deleteTicket__buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.deleteTicket__btn {
+  padding: 15px 50px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #3746d1;
+  border: none;
+}
+
+.deleteTicket__btn--red {
+  background: #d13737;
+}
+
+.loggedOut {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loggedOut h1 {
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.loggedOut__buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loggedOut__btn {
+  padding: 20px 53px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #3746d1;
+  border: none;
+}
+
+.loggedOut__btn--signup {
+  background: #e29910;
+}
+
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login h1 {
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  margin: 30px auto;
+  font-family: 'Manrope', sans-serif;
+}
+
+.login form input {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: #202020;
+  border: none;
+  color: white;
+  padding: 14px;
+  box-sizing: border-box;
+  margin: 6px 0;
+}
+
+.login form button {
+  width: 180px;
+  margin: 10px auto;
+  padding: 16px 0;
+  background-color: #3746d1;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.ticketCreated {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ticketCreated h1 {
+  color: white;
+  font-size: 42px;
+  font-weight: 800;
+  margin: 30px 0;
+}
+
+.ticketCreated a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 21px 0;
+  font-size: 17px;
+  box-sizing: border-box;
+  width: 170px;
+  text-align: center;
+  background-color: #3746d1;
+  margin: 0 auto;
+  display: block;
 }
