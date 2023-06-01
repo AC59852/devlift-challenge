@@ -51,7 +51,7 @@ const Login = () => {
         <input type="password" placeholder="Password" name="password" onChange={handleChange}/><br />
         <button type="submit">Log in</button>
       </form>
-      {user.error && <h4>{user.error}</h4>}
+      {user.error && <h4 className='login__error'>{user.error}</h4>}
     </section>
   )
 };

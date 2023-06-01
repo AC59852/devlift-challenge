@@ -525,3 +525,8 @@ body {
   margin: 0 auto;
   display: block;
 }
+
+.login__error {
+  text-align: center;
+  color: white;
+}
