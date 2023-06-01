@@ -53,7 +53,7 @@ const Signup = () => {
   }
 
   return (
-    <>
+    <section className='login'>
       <h1>Sign up</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Email" name="email" onChange={handleChange}/><br />
@@ -61,7 +61,7 @@ const Signup = () => {
         <button type="submit">Sign Up</button>
       </form>
       {user.error && <h4>{user.error}</h4>}
-    </>
+    </section>
   )
 };
 
